@@ -1,0 +1,50 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+  namespace: roboshop
+  labels:
+    app: web
+    project: roboshop
+    tier: web
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web
+      project: roboshop
+      tier: web
+  template:
+    metadata:
+      labels: 
+        app: web
+        project: roboshop
+        tier: web
+    spec:
+      containers:
+      - name: web
+        image: dockerhk2/web:v1
+        imagePullPolicy: Always
+        # envFrom:
+        # - configMapRef:
+        #     name: catalogue 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web
+  namespace: roboshop
+spec:
+  type: LoadBalancer
+  selector:
+    app: web
+    project: roboshop
+    tier: web
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+
+
+

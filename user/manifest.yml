@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: user
+  name: user 
   namespace: roboshop
 data:
   MONGO: "true"
